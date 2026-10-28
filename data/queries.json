@@ -1,0 +1,38 @@
+[
+  {
+    "id": "LEAD-102",
+    "createdAt": "2026-10-26T15:53:34.023Z",
+    "name": "Prathmesh Bhagwat",
+    "phone": "6354136921",
+    "email": "N/A",
+    "location": "Maninagar",
+    "service": "Torrent Power Liaisoning Work",
+    "priority": "Normal",
+    "status": "New",
+    "assignedTo": "Unassigned",
+    "description": "Testing of EmailJS (ignore if email successfully received)\n\nPrathmesh Bhagwat (Area: Maninagar)",
+    "estimatedValue": "Pending Assessment",
+    "needsEstimate": true,
+    "estimateStatus": "Free Estimate Requested",
+    "requestType": "Fast Hero Free Estimate",
+    "internalNotes": "Received online query via website form."
+  },
+  {
+    "id": "LEAD-101",
+    "createdAt": "2026-10-26T15:33:39.939Z",
+    "name": "Test Client",
+    "phone": "9876543210",
+    "email": "N/A",
+    "location": "Ahmedabad, Gujarat",
+    "service": "Fan installation",
+    "priority": "Normal",
+    "status": "New",
+    "assignedTo": "Unassigned",
+    "description": "Testing",
+    "estimatedValue": "Pending Assessment",
+    "needsEstimate": true,
+    "estimateStatus": "Needs Estimate",
+    "requestType": "Free Estimate Request",
+    "internalNotes": "Received online query via website form."
+  }
+]

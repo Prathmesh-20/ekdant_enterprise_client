@@ -1,0 +1,13 @@
+{
+  "formUrl": "https://maps.app.goo.gl/2XXWdb2nD3P29AEY8",
+  "sheetCsvUrl": "",
+  "entryMap": {
+    "name": "entry.1000001",
+    "location": "entry.1000002",
+    "service": "entry.1000003",
+    "rating": "entry.1000004",
+    "comment": "entry.1000005"
+  },
+  "autoSync": true,
+  "lastSynced": "2026-10-24T14:54:38.680Z"
+}

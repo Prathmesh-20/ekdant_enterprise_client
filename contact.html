@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Shop Location | Google Map | Ekdant Enterprise</title>
+  <meta name="description" content="Find our shop location on Google Maps, check dispatch service areas, or reach out to Ekdant Enterprise. 24/7 emergency dispatch and fast responses.">
+  <meta name="keywords" content="electrician near me, electrician map, shop location, Ekdant Enterprise address, electrician phone number, electrical emergency dispatch">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Theme Anti-Flicker Script -->
+  <script>
+    (function() {
+      var savedTheme = localStorage.getItem('ekdant_theme') || localStorage.getItem('voltcraft_theme');
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              navy: '#0f172a',
+              slate: '#1e293b',
+              amber: '#d97706',
+              amberHover: '#b45309',
+              electric: '#0284c7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-white theme-transition">
+
+  <!-- Main Navigation Header (Clean, Light & Dark Responsive, Single-Line Layout) -->
+  <header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur border-b border-slate-200/80 dark:border-slate-800/80 shadow-sm transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo with proper right margin -->
+        <a href="index.html" class="flex items-center gap-3 group shrink-0 mr-2 xl:mr-6">
+          <div class="w-10 h-10 xl:w-11 xl:h-11 rounded-xl bg-amber-500 flex items-center justify-center text-white text-lg xl:text-xl font-black shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <div>
+            <div class="text-base sm:text-lg xl:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-1">
+              EKDANT <span class="text-amber-600 dark:text-amber-400">ENTERPRISE</span>
+            </div>
+            <p class="text-[9px] xl:text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-medium">Licensed Electrical Contractor</p>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links (Always single line, no wrapping) -->
+        <nav class="hidden lg:flex items-center gap-0.5 xl:gap-1.5 text-xs xl:text-sm font-semibold mx-auto shrink-0">
+          <a href="index.html" class="nav-link whitespace-nowrap px-2.5 xl:px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/70 transition-all">Home</a>
+          <a href="about.html" class="nav-link whitespace-nowrap px-2.5 xl:px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/70 transition-all">About Us</a>
+          <a href="services.html" class="nav-link whitespace-nowrap px-2.5 xl:px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/70 transition-all">Services</a>
+          <a href="reviews.html" class="nav-link whitespace-nowrap px-2.5 xl:px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/70 transition-all">Reviews</a>
+          <a href="feedback.html" class="nav-link whitespace-nowrap px-2.5 xl:px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/70 transition-all">Feedback</a>
+          <a href="contact.html" class="nav-link whitespace-nowrap px-2.5 xl:px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/70 transition-all">Map & Contact</a>
+        </nav>
+
+        <!-- Right Side: Dark/Light Mode Toggle + CTA Action Buttons -->
+        <div class="flex items-center gap-2 xl:gap-3 shrink-0 ml-2 xl:ml-5">
+          <!-- Theme Toggle Button -->
+          <button class="theme-toggle-btn p-2 xl:p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100/80 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-amber-400 transition-all flex items-center justify-center w-9 h-9 xl:w-10 xl:h-10 shadow-sm" aria-label="Toggle Dark and Light Mode" title="Switch between Dark & Light mode">
+            <i class="fa-solid fa-moon text-sm xl:text-base dark:hidden"></i>
+            <i class="fa-solid fa-sun text-sm xl:text-base hidden dark:inline-block"></i>
+          </button>
+
+          <!-- Divider -->
+          <div class="hidden sm:block h-6 w-px bg-slate-200 dark:bg-slate-800 mx-0.5"></div>
+
+          <!-- Phone CTA -->
+          <a href="tel:+919106833627" class="hidden sm:flex px-2.5 xl:px-4 py-2 xl:py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 bg-white dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 hover:text-amber-600 dark:hover:text-amber-400 text-xs xl:text-sm font-semibold transition-all items-center gap-1.5 xl:gap-2 shadow-sm whitespace-nowrap">
+            <i class="fa-solid fa-phone text-amber-600 dark:text-amber-400"></i>
+            <span class="hidden md:inline">+91 91068 33627</span>
+          </a>
+
+          <!-- Free Estimate Button -->
+          <button class="btn-open-quote hidden sm:flex px-3 xl:px-5 py-2 xl:py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs xl:text-sm shadow-md shadow-amber-500/20 hover:shadow-amber-500/30 transition-all items-center gap-1.5 xl:gap-2 whitespace-nowrap">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Free Estimate</span>
+          </button>
+
+          <!-- Mobile Menu Toggle Button -->
+          <button id="mobile-menu-btn" class="lg:hidden p-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-overlay" class="fixed inset-0 bg-slate-900/50 z-50 hidden backdrop-blur-sm"></div>
+  <aside id="mobile-drawer" class="fixed top-0 right-0 w-80 max-w-[85vw] h-full bg-white dark:bg-slate-900 z-50 p-6 flex flex-col justify-between border-l border-slate-200 dark:border-slate-800 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out">
+    <div>
+      <div class="flex items-center justify-between pb-5 mb-5 border-b border-slate-100 dark:border-slate-800">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-sm shadow-sm">
+            <i class="fa-solid fa-bolt"></i>
+          </div>
+          <span class="font-extrabold text-slate-900 dark:text-white text-base">Ekdant Enterprise</span>
+        </div>
+        <button id="mobile-drawer-close" class="p-2 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" aria-label="Close Navigation">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Appearance Switcher in Mobile Drawer -->
+      <div class="p-3 mb-6 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 flex items-center justify-between">
+        <div class="flex items-center gap-2.5 text-xs font-semibold text-slate-700 dark:text-slate-200">
+          <i class="fa-solid fa-circle-half-stroke text-amber-500 text-sm"></i>
+          <span>Theme Mode</span>
+        </div>
+        <button class="theme-toggle-btn px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-amber-400 text-xs font-bold border border-slate-200 dark:border-slate-600 shadow-sm flex items-center gap-2">
+          <i class="fa-solid fa-moon dark:hidden"></i>
+          <i class="fa-solid fa-sun hidden dark:inline-block"></i>
+          <span class="dark:hidden">Light</span>
+          <span class="hidden dark:inline">Dark</span>
+        </button>
+      </div>
+      
+      <nav class="flex flex-col gap-1.5 text-base font-semibold">
+        <a href="index.html" class="px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Home</a>
+        <a href="about.html" class="px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">About Us</a>
+        <a href="services.html" class="px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Services</a>
+        <a href="reviews.html" class="px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Reviews & Ratings</a>
+        <a href="feedback.html" class="px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Submit Feedback</a>
+        <a href="contact.html" class="px-4 py-2.5 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Location & Contact</a>
+      </nav>
+    </div>
+
+    <div class="pt-6 border-t border-slate-100 dark:border-slate-800 space-y-3">
+      <a href="tel:+919106833627" class="w-full py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700">
+        <i class="fa-solid fa-phone text-amber-600 dark:text-amber-400"></i> +91 91068 33627
+      </a>
+      <button class="btn-open-quote w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold flex items-center justify-center gap-2 shadow-md shadow-amber-500/20">
+        <i class="fa-solid fa-calendar-check"></i> Request Free Quote
+      </button>
+    </div>
+  </aside>
+
+  <!-- Page Header (Clean, Responsive Banner) -->
+  <section class="py-16 md:py-20 bg-gradient-to-b from-white via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border-b border-slate-200 dark:border-slate-800 text-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="text-xs uppercase font-bold tracking-widest text-amber-600 dark:text-amber-400 mb-2 inline-block">Direct Communication</span>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">Find Us & Get in Touch</h1>
+      <p class="text-slate-600 dark:text-slate-300 text-base max-w-2xl mx-auto mt-4">
+        Visit our shop headquarters, check our service zones, or send our dispatch team a direct inquiry.
+      </p>
+    </div>
+  </section>
+
+  <!-- Map & Contact Info Section -->
+  <section class="py-16 bg-slate-50 dark:bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Contact Cards Row -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-md transition-all shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xl mx-auto mb-4">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-1">Shop Headquarters</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Shop no. 33, Karnavati Society B/H,<br>Silver complex, opp. Baroda Express highway,<br>Haridarshan Park, Maninagar East, C.T.M, Ahmedabad, Gujarat 380026
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-md transition-all shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xl mx-auto mb-4">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-1">Phone Dispatch</h3>
+          <a href="tel:+919106833627" class="text-sm font-bold text-amber-600 dark:text-amber-400 hover:underline block">
+            +91 91068 33627
+          </a>
+          <span class="text-[11px] text-slate-400 dark:text-slate-500 block mt-1">24/7 Live Emergency Line</span>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-md transition-all shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xl mx-auto mb-4">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-1">Email Us</h3>
+          <a href="mailto:ekdantenterprise33@gmail.com" class="text-xs text-amber-600 dark:text-amber-400 hover:underline block truncate">
+            ekdantenterprise33@gmail.com
+          </a>
+          <span class="text-[11px] text-slate-400 dark:text-slate-500 block mt-1">Replies within 1 business hr</span>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center hover:border-amber-400 dark:hover:border-amber-500 hover:shadow-md transition-all shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xl mx-auto mb-4">
+            <i class="fa-regular fa-clock"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-1">Office Hours</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            Mon–Sat: 8:00 AM – 8:00 PM<br>
+            Sun: 9:00 AM – 2:00 PM<br>
+            <strong class="text-amber-700 dark:text-amber-400">24/7 Emergency Dispatch</strong>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Embedded Google Map + Contact Form (Clean Dual Theme Layout) -->
+      <div class="grid lg:grid-cols-12 gap-10 items-start">
+        
+        <!-- Google Map Embedded Section -->
+        <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-4 sm:p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-map-pin text-red-500"></i>
+                Google Map Location
+              </h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400">EKDANT ENTERPRISE - ELECTRICAL &bull; C.T.M, Ahmedabad</p>
+            </div>
+            <a href="https://maps.app.goo.gl/2XXWdb2nD3P29AEY8" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm">
+              <span>Directions</span> <i class="fa-solid fa-diamond-turn-right"></i>
+            </a>
+          </div>
+
+          <!-- Embedded Responsive Google Map Iframe -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 h-[380px] sm:h-[420px] bg-slate-100 dark:bg-slate-950 relative shadow-inner">
+            <iframe 
+              title="Ekdant Enterprise Shop Location"
+              src="https://maps.google.com/maps?q=EKDANT+ENTERPRISE+-+ELECTRICAL,+Shop+no.+33,+Karnavati+Society,+Silver+complex,+opp.+Baroda+Express+highway,+Ahmedabad,+Gujarat+380026&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <!-- Service Zones Box -->
+          <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <h4 class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Our Rapid Electrical Service Zones (Ahmedabad & Suburbs):</h4>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"><i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 mr-1"></i> Maninagar & Khokhra</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"><i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 mr-1"></i> C.T.M & Hatkeshwar</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"><i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 mr-1"></i> Vatva GIDC & Industrial</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"><i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 mr-1"></i> Narol & Isanpur</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"><i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 mr-1"></i> Odhav & Amraiwadi</span>
+              <span class="px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"><i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 mr-1"></i> Ahmedabad Central & SG Hwy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direct Contact Message Form -->
+        <div class="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm">
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Send Dispatch a Message</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Have questions or want to discuss a planned electrical overhaul? Write to us.</p>
+
+          <form id="contact-page-form" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Full Name *</label>
+              <input type="text" required placeholder="John Miller" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500 transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address *</label>
+              <input type="email" required placeholder="john@example.com" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500 transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+              <input type="tel" placeholder="(555) 000-0000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500 transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Subject</label>
+              <select class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500 transition-colors">
+                <option>Request Free Quote</option>
+                <option>Schedule Safety Inspection</option>
+                <option>Commercial Power Consultation</option>
+                <option>Billing or Permit Inquiry</option>
+                <option>Other Question</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Message *</label>
+              <textarea rows="4" required placeholder="How can we assist you with your electrical needs?" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500 transition-colors"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-md shadow-amber-500/20 transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Send Message</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Frequently Asked Questions -->
+      <div class="mt-20 max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="text-xs uppercase font-bold tracking-widest text-amber-600 dark:text-amber-400">Got Questions?</span>
+          <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="space-y-4">
+          
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-amber-600 dark:text-amber-400"></i>
+              Are your estimates truly free and upfront?
+            </h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-6">
+              Yes! For standard residential and commercial upgrades (such as EV chargers, panel replacements, and lighting retrofits), our estimates are 100% free with transparent flat-rate pricing before work begins.
+            </p>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-amber-600 dark:text-amber-400"></i>
+              How fast can an emergency electrician arrive?
+            </h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-6">
+              Our average dispatch time is 30 to 45 minutes across Metro City and surrounding suburbs. Our service vans are fully stocked with standard circuit breakers, wire, and emergency disconnects.
+            </p>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-circle-question text-amber-600 dark:text-amber-400"></i>
+              Do you pull the required city building permits?
+            </h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed pl-6">
+              Always. As licensed C-10 Electrical Contractors, we handle the entire permitting process with the municipal building department, schedule required inspections, and coordinate with the electric utility company.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-white text-xl font-black">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <span class="text-xl font-black text-white tracking-tight">EKDANT ENTERPRISE</span>
+          </div>
+          <p class="text-sm leading-relaxed text-slate-400 max-w-sm">
+            Licensed and insured master electrical contractors providing reliable residential, commercial, and emergency electrical solutions. Safety and craftsmanship guaranteed.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider">Navigation</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="index.html" class="hover:text-amber-400 transition-colors">Home</a></li>
+            <li><a href="about.html" class="hover:text-amber-400 transition-colors">About Us</a></li>
+            <li><a href="services.html" class="hover:text-amber-400 transition-colors">Services</a></li>
+            <li><a href="reviews.html" class="hover:text-amber-400 transition-colors">Customer Reviews</a></li>
+            <li><a href="feedback.html" class="hover:text-amber-400 transition-colors">Submit Feedback</a></li>
+            <li><a href="contact.html" class="hover:text-amber-400 transition-colors">Map & Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider">Our Services</h4>
+                    <ul class="space-y-2 text-sm">
+            <li><a href="services.html#electrical-project-execution" class="hover:text-amber-400 transition-colors">Electrical Project Execution</a></li>
+            <li><a href="services.html#torrent-power-liasioning" class="hover:text-amber-400 transition-colors">Torrent Power Liasioning</a></li>
+            <li><a href="services.html#interior-electrical-installation" class="hover:text-amber-400 transition-colors">Interior Electrical Installation</a></li>
+            <li><a href="services.html#test-reports-provided" class="hover:text-amber-400 transition-colors">Test Reports Provided</a></li>
+            <li><a href="services.html#electrical-maintenance-services" class="hover:text-amber-400 transition-colors">Electrical Maintenance Services</a></li>
+            <li><a href="services.html#electrical-inspection-services" class="hover:text-amber-400 transition-colors">Electrical Inspection Services</a></li>
+            <li><a href="services.html#cabling-wiring-work" class="hover:text-amber-400 transition-colors">All Type Of Cabling & Wiring Work</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider">Contact & Location</h4>
+          <div class="text-sm space-y-2">
+            <p class="flex items-start gap-2">
+              <i class="fa-solid fa-location-dot text-amber-400 mt-1"></i>
+              <span>Shop No. 33, Karnavati Society, B/H Silver Complex, Opp. Express Highway, CTM, Ahmedabad- 380026</span>
+            </p>
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-phone text-amber-400"></i>
+              <a href="tel:+919106833627" class="hover:text-amber-400 font-semibold text-white">+91 91068 33627</a>
+            </p>
+            <p class="flex items-center gap-2">
+              <i class="fa-solid fa-map-location-dot text-amber-400"></i>
+              <a href="https://maps.app.goo.gl/2XXWdb2nD3P29AEY8" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 text-xs font-semibold text-slate-300 underline">View on Google Maps</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright Bar -->
+      <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4 border-t border-slate-900/80">
+        <div class="text-center md:text-left space-y-1">
+          <p class="site-copyright-trigger cursor-default select-none font-medium text-slate-400" title="&copy; Ekdant Enterprise">
+            &copy; 2026 Ekdant Enterprise. All rights reserved.
+          </p>
+          <p class="text-[11px] text-slate-500 max-w-2xl leading-relaxed">
+            Govt. Licensed Electrical Contractor & Engineering Solutions, Ahmedabad, Gujarat. All service names, logos, and website contents are proprietary trademarks of Ekdant Enterprise. Unauthorized reproduction or commercial distribution without prior written permission is strictly prohibited.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-4 text-xs shrink-0">
+          <span class="inline-flex items-center gap-1.5 text-emerald-400/90 font-semibold bg-emerald-950/40 border border-emerald-800/50 px-2.5 py-1 rounded-full text-[11px]">
+            <i class="fa-solid fa-shield-check text-emerald-400"></i> Licensed & Insured
+          </span>
+          <a href="contact.html" class="hover:text-amber-400 transition-colors">Shop Location</a>
+          <a href="services.html" class="hover:text-amber-400 transition-colors">Services</a>
+          <a href="reviews.html" class="hover:text-amber-400 transition-colors">Verified Reviews</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Universal Free Estimate Request Modal (Responsive Dual Theme) -->
+  <div id="quote-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
+      <button id="close-quote-modal" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 dark:hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-calculator"></i>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white">Request a Free Estimate</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">No obligation &bull; Flat-rate upfront pricing</p>
+        </div>
+      </div>
+
+      <form id="quick-quote-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Full Name *</label>
+          <input type="text" name="name" required placeholder="e.g. John Miller" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Phone Number *</label>
+            <input type="tel" name="phone" required placeholder="(555) 000-0000" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address</label>
+            <input type="email" name="email" placeholder="john@example.com" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Select Service Needed *</label>
+          <select name="service" required class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500">
+                        <option value="Electrical Project Execution">Electrical Project Execution</option>
+            <option value="Torrent Power Liasioning Work">Torrent Power Liasioning Work</option>
+            <option value="Interior Electrical Installation">Interior Electrical Installation</option>
+            <option value="Test Reports Provided">Test Reports Provided</option>
+            <option value="Electrical Maintenance Services">Electrical Maintenance Services</option>
+            <option value="Electrical Inspection Services">Electrical Inspection Services</option>
+            <option value="All Type Of Cabling & Wiring Work">All Type Of Cabling & Wiring Work</option>
+            <option value="Other Electrical Service / Custom Project">Other Electrical Service / Custom Project</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Brief Description of Project</label>
+          <textarea name="description" rows="3" placeholder="Tell us about your project..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:bg-white dark:focus:bg-slate-800 focus:border-amber-500"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-lg shadow-amber-500/20 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Submit Estimate Request</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+    <!-- EmailJS Browser SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

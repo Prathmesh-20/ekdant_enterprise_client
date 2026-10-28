@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1792852573030,
+    "name": "Bhavin Patel",
+    "location": "Maninagar, Ahmedabad",
+    "service": "Fan installation",
+    "rating": 5,
+    "date": "October 22, 2026",
+    "comment": "Submitted my review through Google Form. Ekdant Enterprise installed 4 ceiling fans and modular switches in our new apartment. Superb balancing, zero wobble, and honest flat-rate pricing. Highly recommend!",
+    "source": "google-form",
+    "status": "Approved",
+    "featured": true,
+    "verified": true
+  },
+  {
+    "id": 2,
+    "name": "Kavita Shah",
+    "location": "Hatkeshwar, Ahmedabad",
+    "service": "Electrical power restoration",
+    "rating": 5,
+    "date": "October 18, 2026",
+    "comment": "Had an emergency power trip issue on our main line late in the evening. Ekdant Enterprise reached our home within 25 minutes, tested the circuit breaker with digital meters, and restored full power safely.",
+    "source": "google-form",
+    "status": "Approved",
+    "featured": true,
+    "verified": true
+  },
+  {
+    "id": 3,
+    "name": "Rajesh Sharma",
+    "location": "Karnavati Society, Ahmedabad",
+    "service": "Light fixture installation",
+    "rating": 5,
+    "date": "October 14, 2026",
+    "comment": "Installed false-ceiling LED profile lights and a heavy dining chandelier. Precision laser alignment and clean work. Best licensed electrician team near C.T.M & Maninagar.",
+    "source": "website",
+    "status": "Approved",
+    "featured": false,
+    "verified": true
+  },
+  {
+    "id": 4,
+    "name": "Deepak Prajapati",
+    "location": "Vatva GIDC, Ahmedabad",
+    "service": "Ground wire installation",
+    "rating": 5,
+    "date": "October 9, 2026",
+    "comment": "Upgraded our entire premises earthing with dedicated ground wires and dual copper ground rods. Complete earth resistance testing carried out and verified on the spot.",
+    "source": "google-form",
+    "status": "Approved",
+    "featured": false,
+    "verified": true
+  },
+  {
+    "id": 5,
+    "name": "Amit Desai",
+    "location": "Khokhra, Ahmedabad",
+    "service": "Electrical outlet & switch repair",
+    "rating": 5,
+    "date": "October 4, 2026",
+    "comment": "Sparking socket in our kitchen was a huge fire hazard. The technician diagnosed the loose back-stabbed wire immediately and replaced it with a modern safety outlet. Excellent work.",
+    "source": "website",
+    "status": "Approved",
+    "featured": false,
+    "verified": true
+  },
+  {
+    "id": 6,
+    "name": "Sanjay Mehta",
+    "location": "Baroda Express Hwy, Ahmedabad",
+    "service": "Outdoor lighting installation",
+    "rating": 5,
+    "date": "September 28, 2026",
+    "comment": "Installed waterproof motion-sensor security floodlights and facade illumination. Weather-sealed conduit work is top notch and provides exceptional security at night.",
+    "source": "google-form",
+    "status": "Approved",
+    "featured": false,
+    "verified": true
+  },
+  {
+    "id": 7,
+    "name": "Pooja Joshi",
+    "location": "Maninagar East, Ahmedabad",
+    "service": "Electrical outlet & switch relocation",
+    "rating": 5,
+    "date": "September 20, 2026",
+    "comment": "Concealed all messy cables behind our 65-inch television by relocating the power outlet and switchbox inside the drywall. Perfectly clean and aesthetic result!",
+    "source": "website",
+    "status": "Approved",
+    "featured": false,
+    "verified": true
+  }
+]

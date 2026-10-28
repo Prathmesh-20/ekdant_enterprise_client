@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" fill="none">
+  <!-- Torrent Symbol -->
+  <rect x="4" y="6" width="52" height="52" rx="12" fill="#F37021"/>
+  <path d="M22 38 L34 16 L31 28 L40 28 L26 48 L28 36 Z" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1" stroke-linejoin="round"/>
+  <!-- Typography -->
+  <text x="68" y="30" font-family="'Segoe UI', -apple-system, Roboto, sans-serif" font-size="20" font-weight="900" fill="#005596" letter-spacing="-0.5">torrent</text>
+  <text x="136" y="30" font-family="'Segoe UI', -apple-system, Roboto, sans-serif" font-size="20" font-weight="900" fill="#F37021" letter-spacing="0">POWER</text>
+  <text x="69" y="48" font-family="'Segoe UI', -apple-system, Roboto, sans-serif" font-size="10" font-weight="700" fill="#64748B" letter-spacing="1.5">AHMEDABAD UTILITY &amp; GRID</text>
+</svg>

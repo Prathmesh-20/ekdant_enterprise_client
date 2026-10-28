@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" fill="none">
+  <!-- La Pinoz Emblem -->
+  <circle cx="30" cy="32" r="26" fill="#006837"/>
+  <circle cx="30" cy="32" r="22" fill="#FFFFFF" stroke="#D71920" stroke-width="2"/>
+  <!-- Pizza Slice -->
+  <path d="M30 16 L42 42 A22 22 0 0 1 18 42 Z" fill="#F9A01B"/>
+  <circle cx="27" cy="29" r="2.5" fill="#D71920"/>
+  <circle cx="34" cy="34" r="2.5" fill="#D71920"/>
+  <circle cx="28" cy="38" r="2" fill="#006837"/>
+  <!-- Typography -->
+  <text x="68" y="31" font-family="'Arial Black', Impact, sans-serif" font-size="22" font-style="italic" font-weight="900" fill="#006837" letter-spacing="0.5">La Pino'z</text>
+  <text x="69" y="49" font-family="'Arial Black', Impact, sans-serif" font-size="14" font-weight="900" fill="#D71920" letter-spacing="4">PIZZA</text>
+</svg>

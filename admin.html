@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ekdant Enterprise Admin & Dispatch Command Center | Secure Staff Portal</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              navy: '#0f172a',
+              slate: '#1e293b',
+              amber: '#f59e0b',
+              amberHover: '#d97706',
+              electric: '#0284c7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- ========================================== -->
+  <!-- 1. LOGIN GATEWAY (SHOWN WHEN NOT LOGGED IN) -->
+  <!-- ========================================== -->
+  <div id="login-gateway" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    
+    <!-- Background Amber Glow -->
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-amber-500/10 blur-[130px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl relative z-10">
+      
+      <!-- Logo & Header -->
+      <div class="text-center mb-8">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-400 text-slate-950 flex items-center justify-center font-black text-3xl mx-auto mb-4 shadow-xl shadow-amber-500/20">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <h2 class="text-2xl font-black text-white tracking-tight">Ekdant Enterprise Dispatch Portal</h2>
+        <p class="text-xs text-slate-400 mt-1">Authorized Contractor & Dispatch Access Only</p>
+      </div>
+
+      <!-- Login Error Alert -->
+      <div id="login-error-alert" class="hidden mb-5 p-3 rounded-xl bg-red-600/20 border border-red-500/40 text-red-300 text-xs flex items-center gap-2">
+        <i class="fa-solid fa-circle-exclamation text-red-400 text-sm"></i>
+        <span id="login-error-text">Invalid Staff ID or Password.</span>
+      </div>
+
+      <!-- Login Form -->
+      <form id="dispatch-login-form" class="space-y-4">
+        
+        <!-- Username / Staff ID -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Staff ID</label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"><i class="fa-solid fa-id-badge"></i></span>
+            <input type="text" id="login-username" required placeholder="Enter Staff ID" autocomplete="username" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1.5">Access Password</label>
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"><i class="fa-solid fa-lock"></i></span>
+            <input type="password" id="login-password" required placeholder="Enter password" autocomplete="current-password" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-10 py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-500 transition-colors">
+            <button type="button" id="btn-toggle-password" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-xs">
+              <i class="fa-solid fa-eye" id="eye-icon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="btn-login-submit" class="w-full py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow-xl shadow-amber-500/20 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Authenticate & Open Portal</span>
+        </button>
+
+        <div class="text-center pt-2">
+          <a href="index.html" class="text-xs text-slate-500 hover:text-slate-300 inline-flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-left"></i> Return to Public Website
+          </a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- 2. ADMIN DASHBOARD (SHOWN ONLY WHEN AUTHENTICATED)   -->
+  <!-- ==================================================== -->
+  <div id="admin-dashboard-container" class="hidden flex-1 flex flex-col min-h-screen">
+    
+    <!-- Top Dispatch Command Header -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          
+          <!-- Left: Branding & Status -->
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black text-2xl shadow-lg shadow-amber-500/20">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 class="text-lg font-black text-white tracking-tight">EKDANT <span class="text-amber-400">DISPATCH</span></h1>
+                <span class="text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded">Admin Portal</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs text-slate-400">
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span id="api-status-badge">API Online (Port 5000)</span>
+                <span>&bull;</span>
+                <span id="live-clock" class="font-mono text-slate-300">--:--:--</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Actions & User Profile -->
+          <div class="flex items-center gap-3">
+            
+            <!-- Log New Inquiry Button -->
+            <button id="btn-new-lead" class="px-3.5 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/20 flex items-center gap-1.5 transition-all">
+              <i class="fa-solid fa-plus"></i>
+              <span>Log Inquiry</span>
+            </button>
+
+            <!-- User Pill -->
+            <div class="hidden md:flex items-center gap-2 bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-lg text-xs">
+              <i class="fa-solid fa-circle-user text-amber-400 text-sm"></i>
+              <span id="auth-user-name" class="font-bold text-slate-200">admin</span>
+            </div>
+
+            <!-- Settings / Change Password Button -->
+            <button id="btn-open-change-password" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold" title="Change Portal Password">
+              <i class="fa-solid fa-key"></i>
+            </button>
+
+            <!-- View Public Site Link -->
+            <a href="index.html" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold" title="View Public Website">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+
+            <!-- Sign Out Button -->
+            <button id="btn-logout" class="px-3 py-2 rounded-lg bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/30 text-xs font-bold transition-all flex items-center gap-1.5" title="Sign Out & Lock Portal">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span class="hidden sm:inline">Lock</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      
+      <!-- KPI Metrics Dashboard Strip -->
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+            <span>Total Inquiries</span>
+            <i class="fa-solid fa-inbox text-slate-500 text-base"></i>
+          </div>
+          <div class="text-3xl font-black text-white" id="stat-total-leads">--</div>
+          <div class="text-[11px] text-slate-400 mt-1">All time leads & queries</div>
+        </div>
+
+        <div class="bg-slate-900 border border-red-500/30 rounded-2xl p-5 relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs text-red-400 font-semibold mb-2">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+              Active Emergencies
+            </span>
+            <i class="fa-solid fa-triangle-exclamation text-red-400 text-base"></i>
+          </div>
+          <div class="text-3xl font-black text-red-400" id="stat-emergencies">--</div>
+          <div class="text-[11px] text-slate-400 mt-1">Immediate response needed</div>
+        </div>
+
+        <div class="bg-slate-900 border border-amber-500/30 rounded-2xl p-5 relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs text-amber-400 font-semibold mb-2">
+            <span>New / Pending Action</span>
+            <i class="fa-solid fa-clock text-amber-400 text-base"></i>
+          </div>
+          <div class="text-3xl font-black text-amber-400" id="stat-new-leads">--</div>
+          <div class="text-[11px] text-slate-400 mt-1">Awaiting technician call</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 relative overflow-hidden">
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+            <span>Scheduled / In Progress</span>
+            <i class="fa-solid fa-calendar-check text-emerald-400 text-base"></i>
+          </div>
+          <div class="text-3xl font-black text-emerald-400" id="stat-scheduled">--</div>
+          <div class="text-[11px] text-slate-400 mt-1">Van assigned & active</div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 relative overflow-hidden col-span-2 lg:col-span-1">
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+            <span>Customer Rating</span>
+            <i class="fa-solid fa-star text-amber-400 text-base"></i>
+          </div>
+          <div class="text-3xl font-black text-white flex items-baseline gap-1">
+            <span id="stat-avg-rating">4.9</span>
+            <span class="text-xs text-slate-400">/ 5.0</span>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1" id="stat-review-count">248+ verified reviews</div>
+        </div>
+
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2 sm:gap-4 overflow-x-auto">
+          <button class="admin-tab-btn active px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-2 transition-all" data-tab="tab-leads">
+            <i class="fa-solid fa-list-check"></i>
+            <span>All Queries & Leads</span>
+            <span class="bg-slate-950 text-amber-400 text-[10px] px-2 py-0.5 rounded-full" id="badge-leads-count">0</span>
+          </button>
+
+          <button class="admin-tab-btn px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs sm:text-sm flex items-center gap-2 border border-slate-800 transition-all" data-tab="tab-emergencies">
+            <i class="fa-solid fa-truck-medical text-red-400"></i>
+            <span>Emergency Queue</span>
+            <span class="bg-red-500/20 text-red-400 border border-red-500/30 text-[10px] px-2 py-0.5 rounded-full" id="badge-emergency-count">0</span>
+          </button>
+
+          <button class="admin-tab-btn px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs sm:text-sm flex items-center gap-2 border border-slate-800 transition-all" data-tab="tab-reviews">
+            <i class="fa-solid fa-comments text-amber-400"></i>
+            <span>Reviews & Testimonials</span>
+            <span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded-full" id="badge-reviews-count">0</span>
+          </button>
+
+          <button class="admin-tab-btn px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs sm:text-sm flex items-center gap-2 border border-slate-800 transition-all" data-tab="tab-content-manager">
+            <i class="fa-solid fa-pen-to-square text-amber-400"></i>
+            <span>Website Content Editor</span>
+            <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold">CMS</span>
+          </button>
+
+          <button class="admin-tab-btn px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold text-xs sm:text-sm flex items-center gap-2 border border-slate-800 transition-all" data-tab="tab-estimates">
+            <i class="fa-solid fa-file-invoice-dollar text-emerald-400"></i>
+            <span>Estimate & Free Quote</span>
+            <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-bold" id="badge-estimates-count">0</span>
+          </button>
+        </div>
+
+        <button id="btn-refresh-data" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-all" title="Refresh Live Data">
+          <i class="fa-solid fa-rotate text-amber-400"></i>
+          <span class="hidden sm:inline">Refresh</span>
+        </button>
+      </div>
+
+      <!-- TAB 1: ALL LEADS & QUERIES -->
+      <div id="tab-leads" class="tab-content space-y-6">
+        
+        <!-- Search & Filters Toolbar -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          
+          <div class="relative flex-1">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+            <input type="text" id="lead-search-input" placeholder="Search client name, phone, email, notes, or neighborhood..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500">
+          </div>
+
+          <div class="flex items-center gap-3">
+            <select id="lead-status-filter" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-300 focus:outline-none focus:border-amber-500">
+              <option value="all">All Statuses</option>
+              <option value="New">New / Uncontacted</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Scheduled">Scheduled</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+
+            <select id="lead-service-filter" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-slate-300 focus:outline-none focus:border-amber-500">
+              <option value="all">All Services</option>
+              <option value="panel">Panel Upgrades</option>
+              <option value="ev">EV Chargers</option>
+              <option value="emergency">Emergency Repairs</option>
+              <option value="lighting">Recessed Lighting</option>
+              <option value="commercial">Commercial Work</option>
+              <option value="inspection">Safety Inspections</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Leads Table Container -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-slate-950/80 border-b border-slate-800 text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
+                  <th class="py-3.5 px-4">Lead ID & Time</th>
+                  <th class="py-3.5 px-4">Client Details</th>
+                  <th class="py-3.5 px-4">Service & Priority</th>
+                  <th class="py-3.5 px-4">Status</th>
+                  <th class="py-3.5 px-4">Assigned Van / Tech</th>
+                  <th class="py-3.5 px-4">Est. Value</th>
+                  <th class="py-3.5 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leads-table-body" class="divide-y divide-slate-800/60 text-slate-200">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <div id="leads-empty-state" class="py-16 text-center text-slate-400 hidden">
+            <i class="fa-solid fa-clipboard-question text-4xl mb-3 text-slate-600"></i>
+            <p class="text-base font-semibold">No queries match your search or filter.</p>
+            <p class="text-xs text-slate-500 mt-1">Try resetting the search bar or filters.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TAB 2: EMERGENCY QUEUE -->
+      <div id="tab-emergencies" class="tab-content hidden space-y-6">
+        <div class="bg-gradient-to-r from-red-950/40 via-slate-900 to-slate-900 border border-red-500/30 rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-red-600/20 text-red-400 flex items-center justify-center font-bold text-lg">
+                <i class="fa-solid fa-bell-concierge"></i>
+              </div>
+              <div>
+                <h2 class="text-lg font-bold text-white">24/7 Rapid Emergency Dispatch Monitor</h2>
+                <p class="text-xs text-slate-400">High priority electrical hazards, outages, and sparked panels requiring urgent dispatch</p>
+              </div>
+            </div>
+            <span class="text-xs text-red-400 font-semibold px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20">Target Response: &lt; 30 Mins</span>
+          </div>
+
+          <div id="emergency-cards-container" class="grid md:grid-cols-2 gap-4 mt-6">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: REVIEWS MODERATION & GOOGLE FORM SYNC -->
+      <div id="tab-reviews" class="tab-content hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+          
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>Client Testimonials & Google Form Management</span>
+                <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Two-Way Sync</span>
+              </h2>
+              <p class="text-xs text-slate-400 mt-1">Manage and sync reviews submitted through both your website and your connected Google Form.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="btn-manual-sync-gf" onclick="syncGoogleFormResponses()" class="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-sm">
+                <i class="fa-solid fa-rotate"></i>
+                <span id="sync-btn-label">Sync Google Form Now</span>
+              </button>
+              <a href="feedback.html" target="_blank" class="px-3.5 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs flex items-center gap-1.5">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Website Form
+              </a>
+            </div>
+          </div>
+
+          <!-- Google Form Integration & Auto-Sync Settings Box -->
+          <div class="mb-6 p-5 rounded-2xl bg-slate-950 border border-indigo-500/30 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm font-bold">
+                  <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <div>
+                  <h3 class="text-xs font-bold text-white uppercase tracking-wider">Google Form Two-Way Sync Configuration</h3>
+                  <p class="text-[11px] text-slate-400">Silent background posting from website to Google Form + Importing Google Form responses to website</p>
+                </div>
+              </div>
+              <span id="gf-sync-status-pill" class="text-[11px] px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-semibold self-start sm:self-auto">
+                <i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Sync Engine Active
+              </span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 text-xs">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">
+                  Google Form Response URL (POST Action)
+                  <span class="text-slate-500 font-normal ml-1">(for background submissions)</span>
+                </label>
+                <input type="url" id="gf-form-url" placeholder="https://docs.google.com/forms/d/e/.../formResponse" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 font-mono text-[11px] focus:outline-none focus:border-indigo-500">
+                <p class="text-[10px] text-slate-500 mt-1">Website reviews post directly here in the background without redirecting the client.</p>
+              </div>
+
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">
+                  Google Form Responses Sheet CSV / Export URL
+                  <span class="text-slate-500 font-normal ml-1">(for pulling responses into website)</span>
+                </label>
+                <input type="url" id="gf-sheet-csv-url" placeholder="https://docs.google.com/spreadsheets/d/.../export?format=csv" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 font-mono text-[11px] focus:outline-none focus:border-indigo-500">
+                <p class="text-[10px] text-slate-500 mt-1">From your Google Sheet: File &gt; Share &gt; Publish to web &gt; Comma-separated values (.csv).</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <div class="text-[11px] text-slate-400 flex items-center gap-2">
+                <span id="gf-last-synced-label">Last synced: Just now</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="saveGoogleFormConfig()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs border border-slate-700 transition-colors">
+                  <i class="fa-solid fa-floppy-disk mr-1"></i> Save Form Settings
+                </button>
+                <button onclick="openAddGoogleFormReviewModal()" class="px-3 py-1.5 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 font-semibold text-xs border border-indigo-500/40 transition-colors">
+                  <i class="fa-solid fa-plus mr-1"></i> Add Google Form Review
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reviews Filter Bar -->
+          <div class="flex flex-wrap items-center gap-2 mb-4 pb-3 border-b border-slate-800 text-xs">
+            <span class="text-slate-400 font-semibold mr-1">Filter Source:</span>
+            <button onclick="filterAdminReviews('all')" class="admin-rev-filter px-3 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold" data-source="all">All Reviews</button>
+            <button onclick="filterAdminReviews('google-form')" class="admin-rev-filter px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700" data-source="google-form">Google Form</button>
+            <button onclick="filterAdminReviews('website')" class="admin-rev-filter px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700" data-source="website">Website Form</button>
+            <button onclick="filterAdminReviews('google')" class="admin-rev-filter px-3 py-1 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700" data-source="google">Google Maps</button>
+          </div>
+
+          <!-- Moderation Cards List -->
+          <div id="reviews-moderation-list" class="space-y-4">
+            <!-- Dynamically populated -->
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB 4: WEBSITE LIVE CONTENT EDITOR (CMS) -->
+      <div id="tab-content-manager" class="tab-content hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+          
+          <!-- Top Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-[11px] font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-pen-to-square"></i> Live Website Content Editor (CMS)
+              </div>
+              <h2 class="text-xl font-bold text-white">Manage & Edit All Website Content</h2>
+              <p class="text-xs text-slate-400 mt-1">Changes saved here will immediately update your public pages (Services, Home, About Us, and Contact Info).</p>
+            </div>
+            
+            <div class="flex items-center gap-2.5">
+              <a href="index.html" target="_blank" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-colors flex items-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-arrow-up-right-from-square text-amber-400"></i> View Live Site
+              </a>
+              <button onclick="saveAllCMSContent()" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-amber-500/20">
+                <i class="fa-solid fa-floppy-disk"></i> Save All Live Changes
+              </button>
+            </div>
+          </div>
+
+          <!-- Sub-Tab Navigation Bar -->
+          <div class="flex items-center gap-2 pt-6 pb-2 overflow-x-auto border-b border-slate-800/80">
+            <button onclick="switchCMSSubTab('services')" id="cms-tab-btn-services" class="cms-subtab-btn active px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-bolt"></i> Services & Descriptions
+            </button>
+            <button onclick="switchCMSSubTab('home')" id="cms-tab-btn-home" class="cms-subtab-btn px-4 py-2 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs flex items-center gap-2 border border-slate-800 hover:bg-slate-800 transition-all">
+              <i class="fa-solid fa-house"></i> Home Page & Hero
+            </button>
+            <button onclick="switchCMSSubTab('about')" id="cms-tab-btn-about" class="cms-subtab-btn px-4 py-2 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs flex items-center gap-2 border border-slate-800 hover:bg-slate-800 transition-all">
+              <i class="fa-solid fa-address-card"></i> About Us Page
+            </button>
+            <button onclick="switchCMSSubTab('company')" id="cms-tab-btn-company" class="cms-subtab-btn px-4 py-2 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs flex items-center gap-2 border border-slate-800 hover:bg-slate-800 transition-all">
+              <i class="fa-solid fa-building"></i> Company & Contact
+            </button>
+            <button onclick="switchCMSSubTab('estimates')" id="cms-tab-btn-estimates" class="cms-subtab-btn px-4 py-2 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs flex items-center gap-2 border border-slate-800 hover:bg-slate-800 transition-all">
+              <i class="fa-solid fa-file-invoice-dollar text-emerald-400"></i> Estimate Template & Free Quote
+            </button>
+            <button onclick="switchCMSSubTab('clients')" id="cms-tab-btn-clients" class="cms-subtab-btn px-4 py-2 rounded-xl bg-slate-950 text-slate-300 font-semibold text-xs flex items-center gap-2 border border-slate-800 hover:bg-slate-800 transition-all">
+              <i class="fa-solid fa-handshake text-amber-400"></i> Trusted Company Logos
+            </button>
+          </div>
+
+          <!-- SUB-TAB 1: SERVICES MANAGER -->
+          <div id="cms-subtab-services" class="cms-subtab-pane pt-6 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <span>Electrical Services Catalog</span>
+                  <span id="cms-services-count" class="text-xs bg-slate-800 text-amber-400 px-2 py-0.5 rounded-full font-mono">7 Services</span>
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Edit service names, pricing ranges, icons, and customer-friendly explanations.</p>
+              </div>
+              <button onclick="openAddServiceModal()" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-sm">
+                <i class="fa-solid fa-plus"></i> Add New Service
+              </button>
+            </div>
+
+            <div id="cms-services-list" class="space-y-4">
+              <!-- Dynamically populated with editable service cards -->
+            </div>
+          </div>
+
+          <!-- SUB-TAB 2: HOMEPAGE HERO & STATS -->
+          <div id="cms-subtab-home" class="cms-subtab-pane hidden pt-6 space-y-6">
+            <form id="cms-home-form" onsubmit="handleSaveHomeContent(event)" class="space-y-6 bg-slate-950 p-6 rounded-2xl border border-slate-800">
+              <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                <div>
+                  <h3 class="text-sm font-bold text-white">Homepage Hero & Key Announcements</h3>
+                  <p class="text-xs text-slate-400">Headlines, subtitles, emergency banner, and trust counters.</p>
+                </div>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Homepage Changes
+                </button>
+              </div>
+
+              <div class="space-y-4 text-xs">
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Hero Pill Badge</label>
+                  <input type="text" id="cms-home-hero-badge" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500 text-xs">
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Hero Main Headline</label>
+                  <input type="text" id="cms-home-hero-title" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-white font-bold focus:outline-none focus:border-amber-500 text-sm">
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Hero Description Paragraph</label>
+                  <textarea id="cms-home-hero-subtitle" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-amber-500 text-xs leading-relaxed"></textarea>
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Emergency Dispatch Banner Announcement</label>
+                  <input type="text" id="cms-home-emergency-banner" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-amber-300 focus:outline-none focus:border-amber-500 text-xs">
+                </div>
+
+                <div class="pt-4 border-t border-slate-800">
+                  <h4 class="font-bold text-white mb-3">Homepage Statistics & Trust Counters</h4>
+                  <div class="grid sm:grid-cols-4 gap-4">
+                    <div>
+                      <label class="block font-semibold text-slate-300 mb-1">Projects Completed</label>
+                      <input type="text" id="cms-stat-projects" placeholder="250+" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-bold text-xs focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                      <label class="block font-semibold text-slate-300 mb-1">Response Time</label>
+                      <input type="text" id="cms-stat-dispatch" placeholder="15 Mins" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-bold text-xs focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                      <label class="block font-semibold text-slate-300 mb-1">Customer Rating</label>
+                      <input type="text" id="cms-stat-satisfaction" placeholder="5.0 ★" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-bold text-xs focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                      <label class="block font-semibold text-slate-300 mb-1">Industry Experience</label>
+                      <input type="text" id="cms-stat-experience" placeholder="10+ Yrs" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-bold text-xs focus:outline-none focus:border-amber-500">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+          <!-- SUB-TAB 3: ABOUT US CONTENT -->
+          <div id="cms-subtab-about" class="cms-subtab-pane hidden pt-6 space-y-6">
+            <form id="cms-about-form" onsubmit="handleSaveAboutContent(event)" class="space-y-6 bg-slate-950 p-6 rounded-2xl border border-slate-800">
+              <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                <div>
+                  <h3 class="text-sm font-bold text-white">About Us Page Narrative & Core Values</h3>
+                  <p class="text-xs text-slate-400">Company history, mission statement, and core customer promises.</p>
+                </div>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm">
+                  <i class="fa-solid fa-floppy-disk"></i> Save About Us Changes
+                </button>
+              </div>
+
+              <div class="space-y-4 text-xs">
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Main Page Headline</label>
+                  <input type="text" id="cms-about-headline" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-white font-bold text-sm focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Company Story / Background</label>
+                  <textarea id="cms-about-story" rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-xs leading-relaxed focus:outline-none focus:border-amber-500"></textarea>
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Mission Statement</label>
+                  <textarea id="cms-about-mission" rows="2" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-xs leading-relaxed focus:outline-none focus:border-amber-500"></textarea>
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Experience Badge Text</label>
+                  <input type="text" id="cms-about-badge" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2.5 text-amber-300 text-xs focus:outline-none focus:border-amber-500">
+                </div>
+
+                <div class="pt-4 border-t border-slate-800">
+                  <h4 class="font-bold text-white mb-3">4 Core Guarantees & Values</h4>
+                  <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                      <input type="text" id="cms-value-title-0" placeholder="Value 1 Title" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-white font-bold text-xs">
+                      <textarea id="cms-value-desc-0" rows="2" placeholder="Value 1 Description" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-slate-300 text-xs"></textarea>
+                    </div>
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                      <input type="text" id="cms-value-title-1" placeholder="Value 2 Title" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-white font-bold text-xs">
+                      <textarea id="cms-value-desc-1" rows="2" placeholder="Value 2 Description" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-slate-300 text-xs"></textarea>
+                    </div>
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                      <input type="text" id="cms-value-title-2" placeholder="Value 3 Title" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-white font-bold text-xs">
+                      <textarea id="cms-value-desc-2" rows="2" placeholder="Value 3 Description" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-slate-300 text-xs"></textarea>
+                    </div>
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                      <input type="text" id="cms-value-title-3" placeholder="Value 4 Title" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-white font-bold text-xs">
+                      <textarea id="cms-value-desc-3" rows="2" placeholder="Value 4 Description" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-slate-300 text-xs"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+          <!-- SUB-TAB 4: COMPANY & CONTACT INFO -->
+          <div id="cms-subtab-company" class="cms-subtab-pane hidden pt-6 space-y-6">
+            <form id="cms-company-form" onsubmit="handleSaveCompanyContent(event)" class="space-y-6 bg-slate-950 p-6 rounded-2xl border border-slate-800">
+              <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+                <div>
+                  <h3 class="text-sm font-bold text-white">Company Identity, Phones & Google Maps Links</h3>
+                  <p class="text-xs text-slate-400">Updates navbar branding, contact forms, emergency hotline, and footer address.</p>
+                </div>
+                <button type="submit" class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm">
+                  <i class="fa-solid fa-floppy-disk"></i> Save Company Info
+                </button>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Company Display Name</label>
+                  <input type="text" id="cms-comp-name" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-bold">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Official Trade / Legal Name</label>
+                  <input type="text" id="cms-comp-legal-name" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white">
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Primary Phone Number (Formatted)</label>
+                  <input type="text" id="cms-comp-phone" placeholder="+91 91068 33627" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-amber-400 font-bold">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Raw Phone Number (for tel: link)</label>
+                  <input type="text" id="cms-comp-phone-raw" placeholder="+919106833627" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-300 font-mono">
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Official Email Address</label>
+                  <input type="email" id="cms-comp-email" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Emergency Hours Description</label>
+                  <input type="text" id="cms-comp-hours" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-300">
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block font-semibold text-slate-300 mb-1">Full Business Address (for Contact Page & Google Schema)</label>
+                  <textarea id="cms-comp-full-address" rows="2" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white"></textarea>
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block font-semibold text-slate-300 mb-1">Short Address (for Navigation, Cards & Footer)</label>
+                  <input type="text" id="cms-comp-short-address" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-300">
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="block font-semibold text-slate-300 mb-1">Google Maps Profile URL</label>
+                  <input type="url" id="cms-comp-maps-url" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-blue-400 font-mono text-[11px]">
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- SUB-TAB 5: ESTIMATES & FREE QUOTE SETTINGS -->
+          <div id="cms-subtab-estimates" class="cms-subtab-pane hidden pt-6 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-file-invoice-dollar text-emerald-400"></i>
+                  <span>Estimate Template & Website Free Estimate Control</span>
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Control default estimate quotes, customer inclusions, and website-wide Free Estimate badges.</p>
+              </div>
+              <button onclick="saveEstimateTemplateSettings()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+                <i class="fa-solid fa-floppy-disk"></i> Save Estimate Settings
+              </button>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-300">
+              <p class="flex items-center gap-2 text-emerald-400 font-semibold mb-1">
+                <i class="fa-solid fa-circle-info"></i> Full Estimate & Free Quote Hub Available
+              </p>
+              <p class="text-slate-400 mb-3">You can also manage incoming client estimate requests, send WhatsApp quotes, and review all pending estimates in the dedicated hub.</p>
+              <button onclick="document.querySelector('[data-tab=tab-estimates]')?.click()" class="px-3.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500 hover:text-slate-950 border border-emerald-500/30 font-bold transition-all flex items-center gap-1.5">
+                <span>Go to Full Estimate & Free Quote Hub</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- SUB-TAB 6: TRUSTED COMPANY LOGOS & MARQUEE -->
+          <div id="cms-subtab-clients" class="cms-subtab-pane hidden pt-6 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800">
+              <div>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-handshake text-amber-400"></i>
+                  <span>Trusted Companies &amp; Partner Logos</span>
+                  <span id="cms-clients-count" class="text-xs bg-slate-800 text-amber-400 px-2 py-0.5 rounded-full font-mono">6 Companies</span>
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Manage the brands and logos displayed in the home page automated scrolling marquee. You can edit names, image paths, and add new companies.</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="saveAllCMSClients()" class="px-3.5 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all shadow-sm">
+                  <i class="fa-solid fa-floppy-disk"></i> Save All Logos
+                </button>
+                <button onclick="openAddClientModal()" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-sm">
+                  <i class="fa-solid fa-plus"></i> Add New Company
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic List of Client Logos -->
+            <div id="cms-clients-list" class="space-y-4">
+              <!-- Dynamically rendered client cards -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB 5: DEDICATED ESTIMATES & FREE QUOTES HUB -->
+      <div id="tab-estimates" class="tab-content hidden space-y-6">
+
+        <!-- Top Summary Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-hourglass-half"></i>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-slate-400">Needs Estimate</p>
+              <h3 class="text-xl font-bold text-white" id="stat-est-pending">0</h3>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-slate-400">Free Estimate Requests</p>
+              <h3 class="text-xl font-bold text-white" id="stat-est-free-req">0</h3>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-paper-plane"></i>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-slate-400">Estimates Sent</p>
+              <h3 class="text-xl font-bold text-white" id="stat-est-sent">0</h3>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-slate-400">Estimates Approved</p>
+              <h3 class="text-xl font-bold text-white" id="stat-est-approved">0</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1. LIVE ESTIMATE REQUESTS & WORK NEEDING ESTIMATE -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-clipboard-list text-emerald-400"></i>
+                <span>Client Inquiries & Work Needing Estimate</span>
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">Track, edit estimated values, generate client quotes, or remove estimate status accordingly.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="openNewEstimateModal()" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+                <i class="fa-solid fa-plus"></i> Add Estimate Inquiry
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter & Search Toolbar -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
+            <div class="relative flex-1 max-w-sm">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+              <input type="text" id="est-search-input" placeholder="Search client name, service, or phone..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+            </div>
+
+            <div class="flex items-center gap-2 overflow-x-auto">
+              <select id="est-status-filter" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-emerald-500">
+                <option value="all">All Estimate Items</option>
+                <option value="needs_estimate">Needs Estimate (Pending)</option>
+                <option value="free_estimate_req">Free Estimate Requests Only</option>
+                <option value="estimate_sent">Estimate Sent</option>
+                <option value="estimate_approved">Approved</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Table Container -->
+          <div class="overflow-x-auto rounded-xl border border-slate-800">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                  <th class="py-3 px-4">Client & Contact</th>
+                  <th class="py-3 px-4">Service & Request Note</th>
+                  <th class="py-3 px-4">Estimate Status</th>
+                  <th class="py-3 px-4">Estimated Value</th>
+                  <th class="py-3 px-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="estimates-table-body" class="divide-y divide-slate-800/60 bg-slate-900/40">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. DEFAULT ESTIMATE TEMPLATE CUSTOMIZER -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-file-pen text-amber-400"></i>
+                <span>Default Estimate Template Customizer</span>
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">Customize the default formal estimate message and inclusions used when generating quotes for clients.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="resetDefaultEstimateTemplate()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition-colors">
+                <i class="fa-solid fa-arrow-rotate-left mr-1"></i> Reset Default
+              </button>
+              <button onclick="saveEstimateTemplateSettings()" class="px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+                <i class="fa-solid fa-floppy-disk"></i> Save Estimate Template
+              </button>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-6">
+            <!-- Left: Settings Form -->
+            <div class="space-y-4 text-xs">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Company / Contractor Heading</label>
+                <input type="text" id="tpl-company-header" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Estimate Validity Period</label>
+                  <input type="text" id="tpl-validity" placeholder="e.g. 30 Days" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-300 mb-1">Default Warranty / Guarantee</label>
+                  <input type="text" id="tpl-warranty" placeholder="e.g. 1-Year Craftsmanship Guarantee" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                </div>
+              </div>
+
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Standard Inclusions (Bullet Points)</label>
+                <textarea id="tpl-inclusions" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500"></textarea>
+              </div>
+
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Pricing Terms & Notes</label>
+                <textarea id="tpl-terms" rows="2" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500"></textarea>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <label class="font-semibold text-slate-300">Full Message / WhatsApp / Email Template</label>
+                  <span class="text-[10px] text-amber-400">Placeholders: {CUSTOMER_NAME}, {SERVICE_NAME}, {ESTIMATE_VALUE}, {VALIDITY}, {INCLUSIONS}, {TERMS}, {COMPANY_PHONE}</span>
+                </div>
+                <textarea id="tpl-body" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-white font-mono text-xs focus:outline-none focus:border-amber-500" oninput="renderEstimateLivePreview()"></textarea>
+              </div>
+            </div>
+
+            <!-- Right: Live Template Preview Card -->
+            <div class="space-y-3">
+              <label class="block font-semibold text-slate-300 text-xs flex items-center justify-between">
+                <span>Live Estimate Output Preview</span>
+                <span class="text-[10px] text-emerald-400"><i class="fa-solid fa-circle-check mr-1"></i>Dynamic Output</span>
+              </label>
+              <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs font-mono text-slate-200 whitespace-pre-wrap leading-relaxed min-h-[300px] border-l-4 border-l-emerald-500 shadow-inner" id="estimate-live-preview-box">
+                <!-- Live preview generated here -->
+              </div>
+              <p class="text-[11px] text-slate-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                This template auto-populates with the customer's name, requested service, and estimated value whenever you generate a quote.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. WEBSITE FREE ESTIMATE CONTROLS & CATALOG BADGES -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-sliders text-emerald-400"></i>
+                <span>Website "Free Estimate" Settings & Service Controls</span>
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">Control whether Free Estimates are advertised, customize promotional text, or remove Free Estimate tags from specific services.</p>
+            </div>
+            <button onclick="saveFreeEstimateGlobalSettings()" class="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+              <i class="fa-solid fa-floppy-disk"></i> Save Free Estimate Settings
+            </button>
+          </div>
+
+          <!-- Global Switch -->
+          <div class="flex items-center justify-between bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <div>
+              <p class="font-bold text-white text-xs">Enable "Free Estimate" Branding Across Entire Website</p>
+              <p class="text-[11px] text-slate-400">If disabled, the header button, hero callouts, and quote modal change to standard service booking.</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="fe-global-toggle" class="sr-only peer" checked onchange="toggleFreeEstimateInputs(this.checked)">
+              <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+            </label>
+          </div>
+
+          <!-- Copy Customizers -->
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Header Button Label</label>
+              <input type="text" id="fe-header-btn" placeholder="e.g. Free Estimate" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Hero CTA Title</label>
+              <input type="text" id="fe-hero-cta" placeholder="e.g. Request Your Free Estimate" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Quote Modal Title</label>
+              <input type="text" id="fe-modal-title" placeholder="e.g. Request a Free Estimate" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+            </div>
+          </div>
+
+          <!-- Services Free Estimate Toggles -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="text-xs font-bold text-white flex items-center gap-1.5">
+                <i class="fa-solid fa-list-check text-amber-400"></i>
+                <span>Services Offering "Free Estimate" (Toggle or Remove per Service)</span>
+              </h4>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="toggleAllServicesFreeEstimate(true)" class="text-[11px] text-emerald-400 hover:underline">Select All</button>
+                <span class="text-slate-600">&bull;</span>
+                <button type="button" onclick="toggleAllServicesFreeEstimate(false)" class="text-[11px] text-red-400 hover:underline">Remove All</button>
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3" id="fe-services-checkboxes">
+              <!-- Rendered via JS for all catalog services -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. EMAILJS INSTANT EMAIL ALERTS INTEGRATION -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                  <i class="fa-solid fa-envelope-circle-check text-amber-400"></i>
+                  <span>EmailJS Instant Lead & Estimate Alerts</span>
+                </h3>
+                <span id="emailjs-status-pill" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  Ready to Connect
+                </span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">Automatically send an instant email to <strong class="text-amber-400">ekdantenterprise33@gmail.com</strong> whenever a customer submits an appeal for a quote, estimate, or service.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="testEmailJSConnection()" id="btn-test-emailjs" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs flex items-center gap-1.5 border border-slate-700 transition-all">
+                <i class="fa-solid fa-paper-plane text-amber-400"></i> Send Test Email
+              </button>
+              <button onclick="saveEmailJSSettings()" class="px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+                <i class="fa-solid fa-floppy-disk"></i> Save EmailJS Settings
+              </button>
+            </div>
+          </div>
+
+          <!-- Configuration Fields -->
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Target Recipient Email</label>
+              <input type="email" id="emailjs-recipient-email" value="ekdantenterprise33@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Service ID (from EmailJS)</label>
+              <input type="text" id="emailjs-service-id" placeholder="e.g. service_xxxxxxx" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500 font-mono">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Template ID (from EmailJS)</label>
+              <input type="text" id="emailjs-template-id" placeholder="e.g. template_xxxxxxx" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500 font-mono">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Public Key (User ID)</label>
+              <input type="text" id="emailjs-public-key" placeholder="e.g. user_xxxx or public_xxxx" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500 font-mono">
+            </div>
+          </div>
+
+          <!-- Step-by-Step EmailJS Setup Guide inside Admin -->
+          <details class="bg-slate-950/70 border border-slate-800 rounded-xl p-4 text-xs">
+            <summary class="cursor-pointer font-bold text-amber-400 select-none flex items-center justify-between">
+              <span class="flex items-center gap-2">
+                <i class="fa-solid fa-circle-question"></i>
+                <span>How to get these 3 keys from EmailJS (Step-by-Step Instructions)</span>
+              </span>
+              <span class="text-[11px] text-slate-400">Click to expand ▾</span>
+            </summary>
+            <div class="mt-3.5 space-y-3 pt-3 border-t border-slate-800 text-slate-300 leading-relaxed">
+              <div class="flex items-start gap-2.5">
+                <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">1</span>
+                <div>
+                  <strong>Sign Up / Log In:</strong> Go to <a href="https://www.emailjs.com/" target="_blank" class="text-amber-400 underline font-semibold">https://www.emailjs.com/</a> and create a free account.
+                </div>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">2</span>
+                <div>
+                  <strong>Add Email Service:</strong> Click <em>Email Services</em> &rarr; <em>Add New Service</em> &rarr; choose <strong>Gmail</strong> &rarr; connect <strong class="text-white">ekdantenterprise33@gmail.com</strong>. Copy the generated <strong>Service ID</strong> (e.g. <code>service_xxxxx</code>) into the box above.
+                </div>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">3</span>
+                <div>
+                  <strong>Create Email Template:</strong> Click <em>Email Templates</em> &rarr; <em>Create New Template</em>. In the template settings, set <strong>To Email</strong> to <code>ekdantenterprise33@gmail.com</code> (or <code>{{to_email}}</code>). Set Subject to <code>⚡ New Estimate Request: {{service_requested}} - {{customer_name}}</code>. Copy the <strong>Template ID</strong> (e.g. <code>template_xxxxx</code>) into the box above.
+                </div>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">4</span>
+                <div>
+                  <strong>Get Public Key:</strong> Click <em>Account</em> (bottom left) &rarr; <em>API Keys</em> &rarr; copy your <strong>Public Key</strong> into the box above.
+                </div>
+              </div>
+              <div class="flex items-start gap-2.5">
+                <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-[10px] shrink-0 mt-0.5">5</span>
+                <div>
+                  <strong>Save & Test:</strong> Click <strong>Save EmailJS Settings</strong> above, then click <strong>Send Test Email</strong>. You will immediately receive a test notification in your Gmail inbox!
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Detailed Lead Inquiry & Notes Modal -->
+  <div id="lead-modal" class="modal-backdrop fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button id="close-lead-modal" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-800">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-file-invoice"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-xl font-bold text-white" id="modal-lead-title">Lead Details</h3>
+            <span id="modal-lead-id" class="text-xs bg-slate-800 text-amber-400 font-mono px-2 py-0.5 rounded">LEAD-000</span>
+          </div>
+          <p class="text-xs text-slate-400" id="modal-lead-time">Logged on Oct 23, 2026</p>
+        </div>
+      </div>
+
+      <div class="space-y-5 text-xs sm:text-sm">
+        
+        <div class="grid sm:grid-cols-3 gap-3">
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400 text-[11px] block">Client Name:</span>
+            <strong class="text-white text-sm" id="modal-client-name">--</strong>
+          </div>
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400 text-[11px] block">Phone:</span>
+            <a href="#" id="modal-client-phone" class="text-amber-400 font-semibold hover:underline">--</a>
+          </div>
+          <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800">
+            <span class="text-slate-400 text-[11px] block">Email:</span>
+            <a href="#" id="modal-client-email" class="text-amber-400 font-semibold hover:underline truncate block">--</a>
+          </div>
+        </div>
+
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <span class="text-slate-400 text-[11px] block mb-1">Customer Problem Description:</span>
+          <p id="modal-lead-desc" class="text-slate-200 leading-relaxed text-xs sm:text-sm italic">
+            --
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-4 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Update Status:</label>
+            <select id="modal-status-select" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+              <option value="New">New</option>
+              <option value="Contacted">Contacted</option>
+              <option value="Scheduled">Scheduled</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Estimate Status:</label>
+            <select id="modal-est-status-select" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-emerald-400 font-semibold focus:outline-none focus:border-emerald-500">
+              <option value="None">No Estimate Required</option>
+              <option value="Needs Estimate">Needs Estimate</option>
+              <option value="Free Estimate Requested">Free Estimate Requested</option>
+              <option value="Estimate Sent">Estimate Sent</option>
+              <option value="Estimate Approved">Estimate Approved</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Assigned Tech:</label>
+            <select id="modal-tech-select" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+              <option value="Unassigned">Unassigned</option>
+              <option value="Ekdant Service Team (Van #1)">Ekdant Service Team (Van #1)</option>
+              <option value="James Kovacs (Van #2)">James Kovacs (Van #2)</option>
+              <option value="Daniela Cruz (Van #3)">Daniela Cruz (Van #3)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Estimated Value:</label>
+            <input type="text" id="modal-value-input" placeholder="e.g. ₹2,500 or ₹4,500" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+          </div>
+        </div>
+
+        <!-- Estimate Quick Action Tools -->
+        <div class="bg-emerald-950/30 border border-emerald-800/40 rounded-xl p-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold"><i class="fa-solid fa-file-invoice-dollar mr-1"></i>Estimate Tools:</span>
+            <button type="button" onclick="generateQuoteForCurrentLead()" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all shadow-sm">
+              <i class="fa-solid fa-bolt"></i> Generate Formal Estimate Quote
+            </button>
+          </div>
+          <button type="button" onclick="removeEstimateFromCurrentLead()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-red-600/30 text-slate-400 hover:text-red-400 border border-slate-700 text-xs transition-colors">
+            <i class="fa-solid fa-xmark mr-1"></i> Remove Estimate Requirement
+          </button>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Internal Dispatch & Technician Notes:</label>
+          <textarea id="modal-notes-input" rows="3" placeholder="Add permit numbers, notes, parts needed, or client availability..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-amber-500"></textarea>
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+          <button id="btn-delete-lead" class="px-4 py-2.5 rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white border border-red-500/30 text-xs font-bold transition-all">
+            <i class="fa-solid fa-trash mr-1.5"></i> Delete Query
+          </button>
+
+          <button id="btn-save-lead-modal" class="px-6 py-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-floppy-disk"></i> Save Updates
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Manual New Lead Entry Modal -->
+  <div id="new-lead-modal" class="modal-backdrop fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative">
+      <button id="close-new-lead-modal" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-lg">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-white">Log New Customer Inquiry</h3>
+          <p class="text-xs text-slate-400">Record phone call, walk-in, or dispatched job</p>
+        </div>
+      </div>
+
+      <form id="manual-lead-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Customer Name *</label>
+          <input type="text" name="name" required placeholder="e.g. Arthur Pendelton" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Phone Number *</label>
+            <input type="tel" name="phone" required placeholder="(555) 000-0000" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Email</label>
+            <input type="email" name="email" placeholder="client@example.com" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Service Required</label>
+            <select name="service" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+              <option value="Electrical Project Execution">Electrical Project Execution</option>
+              <option value="Torrent Power Liasioning Work">Torrent Power Liasioning Work</option>
+              <option value="Interior Electrical Installation">Interior Electrical Installation</option>
+              <option value="Test Reports Provided">Test Reports Provided</option>
+              <option value="Electrical Maintenance Services">Electrical Maintenance Services</option>
+              <option value="Electrical Inspection Services">Electrical Inspection Services</option>
+              <option value="All Type Of Cabling & Wiring Work">All Type Of Cabling & Wiring Work</option>
+              <option value="Other Electrical Service / Custom Project">Other Electrical Service / Custom Project</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">Priority</label>
+            <select name="priority" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+              <option value="Normal">Normal</option>
+              <option value="High">High</option>
+              <option value="Emergency">Emergency (Immediate)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Project Details / Job Notes</label>
+          <textarea name="description" rows="3" placeholder="Symptoms, customer address, property type..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-amber-500"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-amber-500/20 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-plus"></i> Save Inquiry to Dispatch
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div id="change-password-modal" class="modal-backdrop fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-900 border border-slate-700 rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+      <button id="close-password-modal" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-lg font-bold">
+          <i class="fa-solid fa-key"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Change Portal Password</h3>
+          <p class="text-[11px] text-slate-400">Set a custom security password</p>
+        </div>
+      </div>
+
+      <form id="change-password-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Current Password *</label>
+          <input type="password" id="pw-current" required placeholder="Enter current password" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">New Password *</label>
+          <input type="password" id="pw-new" required minlength="4" placeholder="Enter new password (min 4 chars)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">Confirm New Password *</label>
+          <input type="password" id="pw-confirm" required minlength="4" placeholder="Confirm new password" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-all shadow-md">
+          Save New Password
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Google Form Review Manually Modal -->
+  <div id="add-gf-review-modal" class="modal-backdrop fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+      <button id="close-gf-review-modal" onclick="closeAddGoogleFormReviewModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-lg font-bold">
+          <i class="fa-solid fa-file-lines"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Import Google Form Review</h3>
+          <p class="text-[11px] text-slate-400">Record a submission received directly in your Google Form</p>
+        </div>
+      </div>
+
+      <form id="add-gf-review-form" onsubmit="handleManualGoogleFormReviewSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Client Full Name *</label>
+          <input type="text" id="gf-manual-name" required placeholder="e.g. Ramesh Patel" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">City / Neighborhood *</label>
+            <input type="text" id="gf-manual-location" required placeholder="e.g. Hatkeshwar, Ahmedabad" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Rating *</label>
+            <select id="gf-manual-rating" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+              <option value="5" selected>5 Stars - Exceptional</option>
+              <option value="4">4 Stars - Great</option>
+              <option value="3">3 Stars - Average</option>
+              <option value="2">2 Stars - Poor</option>
+              <option value="1">1 Star - Unsatisfactory</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Service Performed *</label>
+          <select id="gf-manual-service" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500">
+            <option value="Electrical Project Execution">Electrical Project Execution</option>
+            <option value="Torrent Power Liasioning Work">Torrent Power Liasioning Work</option>
+            <option value="Interior Electrical Installation">Interior Electrical Installation</option>
+            <option value="Test Reports Provided">Test Reports Provided</option>
+            <option value="Electrical Maintenance Services">Electrical Maintenance Services</option>
+            <option value="Electrical Inspection Services">Electrical Inspection Services</option>
+            <option value="All Type Of Cabling & Wiring Work">All Type Of Cabling & Wiring Work</option>
+            <option value="Other Electrical Work">Other Electrical Work</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Review Feedback Comment *</label>
+          <textarea id="gf-manual-comment" rows="3" required placeholder="Review text submitted on Google Form..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-indigo-500"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition-all shadow-md flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Save & Merge into Website Reviews</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add New Client Company Modal (CMS) -->
+  <div id="add-client-modal" class="modal-backdrop fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+      <button onclick="closeAddClientModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg font-bold">
+          <i class="fa-solid fa-handshake"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-white">Add New Trusted Company</h3>
+          <p class="text-[11px] text-slate-400">Add a client or partner logo to the home page marquee ticker</p>
+        </div>
+      </div>
+
+      <form id="add-client-form" onsubmit="handleCreateClientSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Company / Brand Name *</label>
+          <input type="text" id="new-client-name" required placeholder="e.g. Adani Solar or Reliance Retail" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Business Scope / Category Subtitle *</label>
+          <input type="text" id="new-client-cat" required placeholder="e.g. Commercial Substation &amp; Power Grid" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Logo Image File Path or URL *</label>
+          <input type="text" id="new-client-logo" required placeholder="e.g. images/clients/pnb-bank.svg or https://..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono text-[11px] focus:outline-none focus:border-amber-500">
+          <p class="text-[10px] text-slate-400 mt-1">Tip: Use SVG, transparent PNG, or any image URL. SVG images render in retina resolution.</p>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <button type="button" onclick="closeAddClientModal()" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white font-semibold">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-plus"></i> Add To Marquee
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add New Electrical Service Modal (CMS) -->
+  <div id="add-service-modal" class="modal-backdrop fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+      <button onclick="closeAddServiceModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center text-lg font-bold">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Add New Electrical Service</h3>
+          <p class="text-[11px] text-slate-400">Publishes instantly to website services catalog and homepage</p>
+        </div>
+      </div>
+
+      <form id="add-service-form" onsubmit="handleCreateServiceSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Service Title *</label>
+          <input type="text" id="new-service-title" required placeholder="e.g. Inverter & Battery Wiring" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Category *</label>
+          <input type="text" id="new-service-category" required placeholder="e.g. Power Backup" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Icon (FontAwesome)</label>
+          <select id="new-service-icon" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+            <option value="fa-diagram-project">Project Execution (fa-diagram-project)</option>
+            <option value="fa-file-signature">Torrent Power / Liasioning (fa-file-signature)</option>
+            <option value="fa-house-chimney">Interior Installation (fa-house-chimney)</option>
+            <option value="fa-clipboard-check">Test Reports (fa-clipboard-check)</option>
+            <option value="fa-screwdriver-wrench">Maintenance (fa-screwdriver-wrench)</option>
+            <option value="fa-magnifying-glass-chart">Inspection (fa-magnifying-glass-chart)</option>
+            <option value="fa-network-wired">Cabling & Wiring (fa-network-wired)</option>
+            <option value="fa-bolt">Bolt (fa-bolt)</option>
+            <option value="fa-shield-halved">Shield / Safety (fa-shield-halved)</option>
+            <option value="fa-lightbulb">Lightbulb (fa-lightbulb)</option>
+            <option value="fa-plug">Plug (fa-plug)</option>
+            <option value="fa-wrench">Wrench / Repair (fa-wrench)</option>
+            <option value="fa-tools">Tools (fa-tools)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Customer-Friendly Description *</label>
+          <textarea id="new-service-desc" rows="3" required placeholder="Explain clearly what work is carried out, safety steps, and client benefits..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500"></textarea>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-amber-400 mb-1 flex items-center gap-1.5">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Sub-Services & Key Inclusions (One per line)</span>
+          </label>
+          <textarea id="new-service-subservices" rows="3" placeholder="e.g.&#10;Turnkey Industrial & Commercial Electrification&#10;HT / LT Substation Erection&#10;Panel Installation" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-amber-500 font-mono"></textarea>
+          <p class="text-[10px] text-slate-400 mt-0.5">Enter each sub-service on a new line. They will be displayed with checkmarks on your website.</p>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-all shadow-md flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-plus"></i>
+          <span>Publish Service to Website</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Official Estimate Generator & Quotation Modal -->
+  <div id="estimate-quote-modal" class="modal-backdrop fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-900 border border-slate-700 rounded-2xl max-w-xl w-full p-6 sm:p-7 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+      <button onclick="closeEstimateQuoteModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-800">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-file-invoice-dollar"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Official Estimate Generator</h3>
+          <p class="text-xs text-slate-400" id="quote-modal-subtitle">Ready-to-send customer quotation slip</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Client Name</label>
+            <input type="text" id="quote-client-name" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-bold">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Estimated Cost / Quote</label>
+            <input type="text" id="quote-client-value" placeholder="e.g. ₹2,500 or ₹4,500" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-amber-400 font-bold">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Service Required</label>
+            <input type="text" id="quote-client-service" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Client Phone</label>
+            <input type="text" id="quote-client-phone" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="font-semibold text-slate-300">Generated Estimate Slip (Editable Message)</label>
+            <button type="button" onclick="regenerateEstimateFromTemplate()" class="text-[11px] text-amber-400 hover:underline"><i class="fa-solid fa-rotate mr-1"></i>Regenerate from Template</button>
+          </div>
+          <textarea id="quote-generated-text" rows="10" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-slate-200 font-mono text-xs leading-relaxed focus:outline-none focus:border-emerald-500"></textarea>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-800">
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="copyEstimateToClipboard()" class="px-3.5 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all">
+              <i class="fa-solid fa-copy"></i> Copy Slip
+            </button>
+            <button type="button" onclick="sendEstimateViaWhatsApp()" class="px-3 py-2 rounded-lg bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 font-bold text-xs flex items-center gap-1.5 transition-all">
+              <i class="fa-brands fa-whatsapp"></i> WhatsApp Quote
+            </button>
+          </div>
+
+          <button type="button" onclick="saveEstimateToLead()" class="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all">
+            <i class="fa-solid fa-check"></i> Save & Mark Sent
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manual New Estimate Item Entry Modal -->
+  <div id="new-estimate-modal" class="modal-backdrop fixed inset-0 bg-slate-950/85 z-50 flex items-center justify-center p-4">
+    <div class="modal-content bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative">
+      <button onclick="closeNewEstimateModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center text-lg font-bold">
+          <i class="fa-solid fa-file-circle-plus"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Add Work Needing Estimate</h3>
+          <p class="text-[11px] text-slate-400">Log a new client job or request requiring an estimate</p>
+        </div>
+      </div>
+
+      <form id="new-estimate-form" onsubmit="handleCreateEstimateItem(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Client Full Name *</label>
+          <input type="text" id="new-est-name" required placeholder="e.g. Sandeep Shah" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Phone Number *</label>
+            <input type="tel" id="new-est-phone" required placeholder="+91 98000 00000" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Email</label>
+            <input type="email" id="new-est-email" placeholder="client@example.com" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Service Required</label>
+            <select id="new-est-service" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+              <option value="Electrical Project Execution">Electrical Project Execution</option>
+              <option value="Torrent Power Liasioning Work">Torrent Power Liasioning Work</option>
+              <option value="Interior Electrical Installation">Interior Electrical Installation</option>
+              <option value="Test Reports Provided">Test Reports Provided</option>
+              <option value="Electrical Maintenance Services">Electrical Maintenance Services</option>
+              <option value="Electrical Inspection Services">Electrical Inspection Services</option>
+              <option value="All Type Of Cabling & Wiring Work">All Type Of Cabling & Wiring Work</option>
+              <option value="Custom Electrical Project">Custom Electrical Project</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Estimated Cost / Quote</label>
+            <input type="text" id="new-est-value" placeholder="e.g. ₹3,500 or Pending" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Work Description / Client Notes</label>
+          <textarea id="new-est-notes" rows="3" placeholder="Job details, site address, scope of work..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-emerald-500"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition-all shadow-md flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-plus"></i>
+          <span>Save to Estimate Queue</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <!-- Admin JavaScript Engine with Authentication -->
+    <!-- EmailJS Browser SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/admin.js?v=20261026-1"></script>
+</body>
+</html>

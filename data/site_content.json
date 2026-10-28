@@ -1,0 +1,216 @@
+{
+  "company": {
+    "name": "Ekdant Enterprise",
+    "legalName": "EKDANT ENTERPRISE - ELECTRICAL",
+    "phone": "+91 91068 33627",
+    "phoneRaw": "+919106833627",
+    "email": "ekdantenterprise33@gmail.com",
+    "fullAddress": "Shop No. 33 Karnavati Society, B/H Silver Complex, Opp. Express Highway, CTM, Ahmedabad, Gujarat 380026",
+    "shortAddress": "Shop No. 33 , Karnavati Society, B/H Silver Complex, CTM, Ahmedabad, Gujarat 380026",
+    "city": "Ahmedabad, Gujarat",
+    "googleMapsUrl": "https://maps.app.goo.gl/2XXWdb2nD3P29AEY8",
+    "emergencyHours": "24/7 Rapid Emergency Response"
+  },
+  "home": {
+    "heroBadge": "Certified Master Electricians in Ahmedabad",
+    "heroTitle": "Reliable Electrical Craftsmanship & 24/7 Emergency Repairs",
+    "heroSubtitle": "From turnkey industrial execution to Torrent Power liasioning and testing, Ekdant Enterprise delivers guaranteed, code-compliant electrical solutions across Ahmedabad.",
+    "emergencyBannerText": "Power outage or sparked circuit breaker? Our emergency mobile dispatch van is on call.",
+    "stats": {
+      "projects": "250+",
+      "dispatchTime": "15 Mins",
+      "satisfaction": "5.0",
+      "experience": "10+ Yrs"
+    }
+  },
+  "estimateSettings": {
+    "enableFreeEstimateGlobal": true,
+    "headerButtonText": "Free Estimate",
+    "heroCtaText": "Request Your Free Estimate",
+    "heroCtaSubtext": "100% upfront flat-rate quotes before any work begins. No surprise charges.",
+    "modalTitle": "Request a Free Estimate",
+    "modalSubtitle": "No obligation ? Transparent flat-rate upfront pricing",
+    "defaultTemplate": {
+      "companyHeader": "EKDANT ENTERPRISE - LICENSED ELECTRICAL CONTRACTOR",
+      "validityDays": "30 Days",
+      "standardInclusions": "Certified electrical engineer supervision, Indian Electricity Rules compliance, safe load testing, and clean property cleanup.",
+      "terms": "Transparent flat-rate pricing. No surprise fees. Guaranteed Craftsmanship & Statutory Compliance.",
+      "disclaimer": "Written customer approval required before commencement. Any additional scope discovered during inspection will be quoted before proceeding.",
+      "bodyTemplate": "Hello {CUSTOMER_NAME},\n\nThank you for reaching out to Ekdant Enterprise. Here is your official service estimate:\n\n?? Service: {SERVICE_NAME}\n?? Estimated Value: {ESTIMATE_VALUE}\n? Validity: {VALIDITY}\n\n? Scope & Inclusions:\n? {INCLUSIONS}\n? {TERMS}\n\n?? To approve this estimate and book your technician dispatch, reply to this message or call us at {COMPANY_PHONE}.\n\nBest regards,\nEkdant Enterprise Dispatch Team\n{COMPANY_ADDRESS}"
+    }
+  },
+  "services": [
+    {
+      "id": "electrical-project-execution",
+      "title": "Electrical Project Execution",
+      "category": "Industrial & Commercial",
+      "icon": "fa-bolt",
+      "freeEstimate": true,
+      "description": "Comprehensive end-to-end execution of LT & HT electrical turnkey projects with strict adherence to safety standards.",
+      "subServices": [
+        "HT / LT Substation Installation",
+        "Transformer & Switchgear Erection",
+        "Cable Laying & Termination",
+        "Industrial Panel Board Installation"
+      ]
+    },
+    {
+      "id": "torrent-power-liasioning",
+      "title": "Torrent Power Liaisoning Work",
+      "category": "Torrent Power Liaisoning",
+      "icon": "fa-file-signature",
+      "freeEstimate": true,
+      "description": "End-to-end official liaisoning and documentation with Torrent Power Ltd. for seamless approvals, meter sanctions, and power infrastructure across Ahmedabad.",
+      "subServices": [
+        "New Torrent Power Meter & Supply Connection",
+        "Contract Demand / Load Extension Approvals",
+        "Load Reduction & Tariff Reclassification",
+        "Meter Shifting & Temporary Construction Power",
+        "Name Transfer & Ownership Regularization",
+        "Rooftop Solar Net-Metering Approvals"
+      ]
+    },
+    {
+      "id": "interior-electrical-installation",
+      "title": "Interior Electrical Installation",
+      "category": "Residential & Interiors",
+      "icon": "fa-house-chimney",
+      "freeEstimate": true,
+      "description": "Architectural and interior electrical installation for luxury residences, corporate offices, retail spaces, and showrooms with flawless concealed execution.",
+      "subServices": [
+        "Concealed Conduit Piping & Modular Wiring",
+        "Architectural False Ceiling & LED Profile Lighting",
+        "Distribution Board (DB) Dressing & Load Balancing",
+        "AC, Kitchen & Heavy Appliance Dedicated Points"
+      ]
+    },
+    {
+      "id": "test-reports-provided",
+      "title": "Test Reports Provided",
+      "category": "Testing & Certification",
+      "icon": "fa-clipboard-check",
+      "freeEstimate": true,
+      "description": "Government approved contractor certified test reports and official compliance documentation for Torrent Power, CEIG electrical inspectorate, and industrial audits.",
+      "subServices": [
+        "Torrent Power Approved Contractor Test Reports (Form A / B)",
+        "Insulation Resistance & High Voltage Megger Testing",
+        "Earth Pit Resistance Testing & Value Certification",
+        "Chief Electrical Inspector (CEIG) Statutory Reports",
+        "Annual Safety Audit & Factory Compliance Certificates"
+      ]
+    },
+    {
+      "id": "electrical-maintenance-services",
+      "title": "Electrical Maintenance Services",
+      "category": "Maintenance & Support",
+      "icon": "fa-screwdriver-wrench",
+      "freeEstimate": true,
+      "description": "Proactive scheduled maintenance, Annual Maintenance Contracts (AMC), and 24/7 breakdown emergency support to prevent costly disruptions and ensure safety.",
+      "subServices": [
+        "Annual Maintenance Contracts (AMC) for Buildings & Plants",
+        "24/7 Rapid Emergency Breakdown Support",
+        "Switchgear, Transformer & HT Breaker Servicing",
+        "Thermal Imaging & Infrared Hotspot Diagnostics",
+        "Preventative Power Factor Correction & Capacitor Banks"
+      ]
+    },
+    {
+      "id": "electrical-inspection-services",
+      "title": "Electrical Inspection Services",
+      "category": "Safety & Compliance",
+      "icon": "fa-magnifying-glass-chart",
+      "freeEstimate": true,
+      "description": "Rigorous technical electrical inspections, fault tracing, and safety audits conducted by licensed electrical engineers strictly adhering to Indian Electricity Rules.",
+      "subServices": [
+        "Comprehensive Commercial & Industrial Safety Audits",
+        "Earth Pit & Lightning Protection System Audits",
+        "Harmonic & Power Quality Load Analysis",
+        "Electrical Fire Risk & Hazardous Zone Assessments",
+        "Pre-Purchase & Insurance Property Inspections"
+      ]
+    },
+    {
+      "id": "cabling-wiring-work",
+      "title": "All Type Of Cabling & Wiring Work",
+      "category": "Cabling & Wiring",
+      "icon": "fa-network-wired",
+      "freeEstimate": true,
+      "description": "Heavy-duty power cable laying, underground trenching, cable tray installation, and structured wiring for residential, commercial, and industrial facilities.",
+      "subServices": [
+        "HT / LT Armoured Power Cable Laying & Underground Trenching",
+        "Perforated & Ladder-Type Cable Tray Erection",
+        "Cable Jointing, Glanding, Heat-Shrink Kits & Termination",
+        "Sub-Main Riser Cabling & Heavy Feeder Runs",
+        "Structured Low-Voltage, LAN & Control Wiring"
+      ]
+    }
+  ],
+  "about": {
+    "headline": "Government Approved Electrical Contractor",
+    "story": "Ekdant Enterprise provides reliable, efficient, and cost-effective electrical solutions for residential, commercial and Industrial projects, with a focus on safety, convenience, and long-term performance. Based in Ahmedabad, Gujarat, we are a Government approved Electrical Contractor, specializing in electrical projects and comprehensive electrical services.\n\nUnder the leadership of Mr. Siddharth Bhagwat, Electrical Engineer, and Mr. Shyam Bhagwat, Proprietor with extensive experience in the electrical field, Ekdant Enterprise provides reliable and cost-effective electrical solutions, prioritizing safety, timely execution, and lasting client satisfaction.\n\nWe specialize in residential and commercial electrical installations, upgradation, modification, maintenance, and troubleshooting, with a focus on safety, timely execution, and efficient project delivery.",
+    "mission": "At Ekdant Enterprise, we prioritize clear communication, effective coordination, and dependable service. Our goal is to build lasting client relationships by delivering practical electrical solutions that meet individual project requirements and ensure long-term reliability.",
+    "experienceBadge": "Government Approved Electrical Contractor",
+    "values": [
+      {
+        "title": "Clear Communication & Coordination",
+        "desc": "We prioritize clear communication, effective coordination, and dependable service on every residential, commercial, and industrial engagement."
+      },
+      {
+        "title": "Safety & Timely Execution",
+        "desc": "Government approved electrical safety protocols, certified equipment, and strictly punctual project execution."
+      },
+      {
+        "title": "Comprehensive Electrical Scope",
+        "desc": "Specializing in electrical installations, upgradation, modification, maintenance, and troubleshooting."
+      },
+      {
+        "title": "Lasting Client Satisfaction",
+        "desc": "Practical and cost-effective electrical solutions tailored to individual requirements, ensuring long-term performance."
+      }
+    ]
+  },
+  "trustedClients": [
+    {
+      "id": "lapinoz-pizza",
+      "name": "La Pino'z Pizza",
+      "category": "Commercial QSR Outlets",
+      "logo": "images/clients/lapinoz-pizza.svg",
+      "active": true
+    },
+    {
+      "id": "city-union-bank",
+      "name": "City Union Bank (CUB)",
+      "category": "Banking Hub & Branch",
+      "logo": "images/clients/city-union-bank.svg",
+      "active": true
+    },
+    {
+      "id": "torrent-power",
+      "name": "Torrent Power Work",
+      "category": "Govt. Sanctioned Projects",
+      "logo": "images/clients/torrent-power.svg",
+      "active": true
+    },
+    {
+      "id": "hdfc-bank",
+      "name": "HDFC Bank",
+      "category": "Commercial Facilities",
+      "logo": "images/clients/hdfc-bank.svg",
+      "active": true
+    },
+    {
+      "id": "tata-commercial",
+      "name": "Tata Commercial",
+      "category": "Industrial Showrooms",
+      "logo": "images/clients/tata-commercial.svg",
+      "active": true
+    },
+    {
+      "id": "punjab-national-bank",
+      "name": "Punjab National Bank",
+      "category": "Banking Hub",
+      "logo": "https://tse1.mm.bing.net/th/id/OIP.LWzvpSLCnR1ZXCltlcVqBQHaEH?r=0&pid=Api&h=220&P=0",
+      "active": true
+    }
+  ]
+}

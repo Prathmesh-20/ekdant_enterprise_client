@@ -1,0 +1,518 @@
+/* Ekdant Enterprise - Dual Theme (Light & Dark) Styles */
+
+:root {
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  --accent-amber: #d97706;
+  --accent-amber-light: #fef3c7;
+  --primary-navy: #0f172a;
+  --electric-blue: #0284c7;
+  --electric-blue-light: #e0f2fe;
+  --success-emerald: #059669;
+}
+
+html.dark {
+  --bg-main: #020617;
+  --bg-card: #0f172a;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-light: #1e293b;
+  --accent-amber: #f59e0b;
+  --accent-amber-light: #78350f;
+  --primary-navy: #f8fafc;
+  --electric-blue: #38bdf8;
+  --electric-blue-light: #0c4a6e;
+  --success-emerald: #10b981;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d97706;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #020617;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+/* Subtle transitions for theme switching */
+body, header, aside, .theme-transition {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease;
+}
+
+/* Navigation link single-line guarantee */
+.nav-link {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  display: inline-flex !important;
+  align-items: center;
+}
+
+/* Subtle pulse for emergency indicators */
+@keyframes pulseBadge {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.7;
+  }
+}
+
+.pulse-badge {
+  animation: pulseBadge 2s infinite ease-in-out;
+}
+
+/* Soft Ambient Glows */
+@keyframes softGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.soft-glow {
+  animation: softGlow 4s infinite ease-in-out;
+}
+
+/* Before / After Slider Styles */
+.ba-slider-container {
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  border-radius: 1rem;
+}
+
+.ba-slider-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ba-before-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  border-right: 3px solid #d97706;
+}
+
+html.dark .ba-before-wrapper {
+  border-right-color: #f59e0b;
+}
+
+.ba-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  background-color: #ffffff;
+  color: #0f172a;
+  border: 2px solid #d97706;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  cursor: ew-resize;
+  pointer-events: none;
+  z-index: 10;
+  transition: transform 0.1s ease;
+}
+
+html.dark .ba-handle {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border-color: #f59e0b;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.ba-tag {
+  position: absolute;
+  top: 1rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  z-index: 5;
+}
+
+/* Star Rating Hover & Active */
+.star-rating i {
+  cursor: pointer;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.star-rating i:hover,
+.star-rating i.active {
+  color: #f59e0b !important;
+  transform: scale(1.15);
+}
+
+/* Modal styling */
+.modal-backdrop {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+html.dark .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  transform: scale(0.96) translateY(8px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* Mobile Nav Drawer */
+#mobile-drawer {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#mobile-drawer.open {
+  transform: translateX(0);
+}
+
+/* Toast Notifications */
+#toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.toast-item {
+  pointer-events: auto;
+  min-width: 320px;
+  max-width: 440px;
+  padding: 0.875rem 1.25rem;
+  border-radius: 1rem;
+  background: #0f172a;
+  color: #ffffff;
+  border: 1px solid #334155;
+  border-left: 5px solid #f59e0b;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: slideInToast 0.3s forwards ease-out;
+}
+
+.toast-item.toast-error {
+  border-left-color: #ef4444;
+}
+
+.toast-item .toast-text {
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+.toast-item .toast-close {
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.toast-item .toast-close:hover {
+  color: #ffffff;
+}
+
+html.dark .toast-item {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #334155;
+  border-left-color: #f59e0b;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes slideInToast {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Automated Client Logo Marquee Animation */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.client-marquee-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.client-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marqueeScroll 30s linear infinite;
+}
+
+.client-marquee-container:hover .client-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .client-marquee-track {
+    animation-duration: 22s;
+  }
+}
+
+/* Expandable & Collapsible Sub-Services Accordion */
+details.service-subservices-toggle summary::-webkit-details-marker,
+details.service-subservices-toggle summary::marker {
+  display: none !important;
+  content: "" !important;
+}
+
+details.service-subservices-toggle summary {
+  list-style: none !important;
+  cursor: pointer;
+  user-select: none;
+}
+
+details.service-subservices-toggle[open] .subservices-chevron {
+  transform: rotate(180deg);
+}
+
+details.service-subservices-toggle[open] .subservices-expand-text {
+  display: none !important;
+}
+
+details.service-subservices-toggle:not([open]) .subservices-collapse-text {
+  display: none !important;
+}
+
+/* Review & Service Badges - strict layout to prevent overlapping borders or word breaking */
+.review-service-badge,
+.service-pill-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  max-width: 100%;
+}
+
+/* =========================================================================
+   High-Conversion Lead Tools: Floating WhatsApp & Mobile Action Dock
+   ========================================================================= */
+
+/* Floating WhatsApp Button */
+.whatsapp-float-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9990;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+@media (max-width: 639px) {
+  .whatsapp-float-container {
+    bottom: 5.25rem;
+    right: 1rem;
+  }
+}
+
+.whatsapp-float-btn {
+  pointer-events: auto;
+  width: 58px;
+  height: 58px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.whatsapp-float-btn:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 14px 28px -4px rgba(37, 211, 102, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.25);
+}
+
+.whatsapp-float-btn:active {
+  transform: scale(0.96);
+}
+
+/* Pulsing radar ring */
+.whatsapp-pulse-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  border: 2px solid #25D366;
+  opacity: 0.8;
+  animation: wa-pulse 2.2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes wa-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Online status dot */
+.whatsapp-online-dot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 14px;
+  height: 14px;
+  background-color: #22c55e;
+  border: 2.5px solid #ffffff;
+  border-radius: 9999px;
+}
+
+/* Tooltip Badge on Hover */
+.whatsapp-pill-label {
+  position: absolute;
+  right: 68px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #0f172a;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateY(-50%) translateX(6px);
+  border: 1px solid #334155;
+}
+
+.whatsapp-float-btn:hover .whatsapp-pill-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 639px) {
+  .whatsapp-pill-label {
+    display: none;
+  }
+}
+
+/* Mobile Sticky Bottom Action Dock */
+#mobile-sticky-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 9980;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0.4rem 0.75rem;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 -4px 16px -2px rgba(0, 0, 0, 0.08);
+}
+
+.dark #mobile-sticky-dock {
+  background: rgba(15, 23, 42, 0.96);
+  border-top-color: rgba(30, 41, 59, 0.8);
+  box-shadow: 0 -4px 16px -2px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 640px) {
+  #mobile-sticky-dock {
+    display: none !important;
+  }
+}
+
+@media (max-width: 639px) {
+  body {
+    padding-bottom: 62px;
+  }
+  #toast-container {
+    bottom: 4.75rem !important;
+    right: 1rem !important;
+    left: 1rem !important;
+  }
+  .toast-item {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
