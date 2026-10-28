@@ -80,44 +80,6 @@ function initHighConversionLeadTools() {
 
     document.body.appendChild(waContainer);
   }
-
-  // 2. Inject Mobile Sticky Bottom Action Dock
-  if (!document.getElementById('mobile-sticky-dock')) {
-    const dock = document.createElement('div');
-    dock.id = 'mobile-sticky-dock';
-    dock.innerHTML = `
-      <!-- 1. 24/7 Call Button -->
-      <a href="tel:+919106833627" class="flex-1 flex flex-col items-center justify-center py-1 text-slate-800 dark:text-slate-100 hover:text-amber-500 font-bold transition-colors">
-        <div class="relative">
-          <i class="fa-solid fa-phone-volume text-amber-500 text-base mb-0.5"></i>
-          <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-        </div>
-        <span class="text-[10px] font-extrabold uppercase tracking-tight text-slate-700 dark:text-slate-200">Call 24/7</span>
-      </a>
-
-      <!-- 2. WhatsApp Direct Chat Button -->
-      <a href="${whatsappUrl}" target="_blank" rel="noopener noreferrer" class="flex-1 flex flex-col items-center justify-center py-1 mx-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold shadow-md shadow-emerald-500/20 active:scale-95 transition-all">
-        <div class="flex items-center gap-1.5">
-          <i class="fa-brands fa-whatsapp text-lg"></i>
-          <span class="text-xs font-black tracking-wide">WhatsApp</span>
-        </div>
-        <span class="text-[9px] text-emerald-100 font-medium">Online Now</span>
-      </a>
-
-      <!-- 3. Free Estimate Modal Button -->
-      <button type="button" class="btn-open-quote flex-1 flex flex-col items-center justify-center py-1 text-slate-800 dark:text-slate-100 hover:text-amber-500 font-bold transition-colors">
-        <i class="fa-solid fa-file-invoice-dollar text-amber-500 text-base mb-0.5"></i>
-        <span class="text-[10px] font-extrabold uppercase tracking-tight text-slate-700 dark:text-slate-200">Free Quote</span>
-      </button>
-    `;
-
-    document.body.appendChild(dock);
-
-    // Re-bind quote modal buttons so the newly added mobile dock button triggers quote modal
-    if (typeof initQuoteModal === 'function') {
-      initQuoteModal();
-    }
-  }
 }
 
 // 0. Theme Toggle (Dark & Light Mode)

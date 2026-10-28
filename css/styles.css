@@ -369,8 +369,8 @@ details.service-subservices-toggle:not([open]) .subservices-collapse-text {
 
 @media (max-width: 639px) {
   .whatsapp-float-container {
-    bottom: 5.25rem;
-    right: 1rem;
+    bottom: 1.5rem;
+    right: 1.25rem;
   }
 }
 
@@ -468,51 +468,5 @@ details.service-subservices-toggle:not([open]) .subservices-collapse-text {
 @media (max-width: 639px) {
   .whatsapp-pill-label {
     display: none;
-  }
-}
-
-/* Mobile Sticky Bottom Action Dock */
-#mobile-sticky-dock {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  z-index: 9980;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0.4rem 0.75rem;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 -4px 16px -2px rgba(0, 0, 0, 0.08);
-}
-
-.dark #mobile-sticky-dock {
-  background: rgba(15, 23, 42, 0.96);
-  border-top-color: rgba(30, 41, 59, 0.8);
-  box-shadow: 0 -4px 16px -2px rgba(0, 0, 0, 0.4);
-}
-
-@media (min-width: 640px) {
-  #mobile-sticky-dock {
-    display: none !important;
-  }
-}
-
-@media (max-width: 639px) {
-  body {
-    padding-bottom: 62px;
-  }
-  #toast-container {
-    bottom: 4.75rem !important;
-    right: 1rem !important;
-    left: 1rem !important;
-  }
-  .toast-item {
-    min-width: 0 !important;
-    width: 100% !important;
   }
 }
